@@ -33,7 +33,7 @@ var drawingHeight = $drawing.height;
 
 var numAngleCells = 360;
 var rhoMax = Math.sqrt(drawingWidth * drawingWidth + drawingHeight * drawingHeight);
-var accum = Array(numAngleCells);
+var accum = new Array(numAngleCells);
 
 // Set the size of the Hough space.
 $houghSp.width = numAngleCells;
@@ -81,8 +81,8 @@ $drawing.addEventListener('mousemove', function(e) {
 });
 
 // Precalculate tables.
-var cosTable = Array(numAngleCells);
-var sinTable = Array(numAngleCells);
+var cosTable = new Array(numAngleCells);
+var sinTable = new Array(numAngleCells);
 for (var theta = 0, thetaIndex = 0; thetaIndex < numAngleCells; theta += Math.PI / numAngleCells, thetaIndex++) {
   cosTable[thetaIndex] = Math.cos(theta);
   sinTable[thetaIndex] = Math.sin(theta);
