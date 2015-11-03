@@ -33,7 +33,7 @@ var drawingHeight = $drawing.height;
 
 var numAngleCells = 360;
 var rhoMax = Math.sqrt(drawingWidth * drawingWidth + drawingHeight * drawingHeight);
-var accum = Array(numAngleCells);
+var accum = new Array(numAngleCells);
 
 // Set the size of the Hough space.
 $houghSp.width = numAngleCells;
@@ -67,7 +67,7 @@ $drawing.addEventListener('mousemove', function(e) {
    * @return {number} The local X value of the mouse.
    */
   function getX(e) {
-    return e.layerX != undefined && e.layerX - e.target.clientLeft - e.target.offsetLeft || e.offsetX != undefined && e.offsetX || e.clientX != undefined && e.clientX;
+    return e.offsetX ? e.offsetX : e.layerX;
   }
 
   /**
@@ -76,13 +76,13 @@ $drawing.addEventListener('mousemove', function(e) {
    * @return {number} The local Y value of the mouse.
    */
   function getY(e) {
-    return e.layerY != undefined && e.layerY - e.target.clientTop - e.target.offsetTop || e.offsetY != undefined && e.offsetY || e.clientY != undefined && e.clientY;
+    return e.offsetY ? e.offsetY : e.layerY;
   }
 });
 
 // Precalculate tables.
-var cosTable = Array(numAngleCells);
-var sinTable = Array(numAngleCells);
+var cosTable = new Array(numAngleCells);
+var sinTable = new Array(numAngleCells);
 for (var theta = 0, thetaIndex = 0; thetaIndex < numAngleCells; theta += Math.PI / numAngleCells, thetaIndex++) {
   cosTable[thetaIndex] = Math.cos(theta);
   sinTable[thetaIndex] = Math.sin(theta);
